@@ -1,18 +1,16 @@
 
 start
-
-idil lahana
 ## asdhaoyu aswhd aşfakf os kd apk fha fojpf ##
 
 
 do[
-    x = scan_input(enter value x  );
-    y = scan_input(enter value y)
-    z = scan_input(enter value z) ;
+    x = scan_input("enter value x: "  );
+    y = scan_input("enter value y: ")
+    z = scan_input("enter value z: ") ;
 ]
 while(x & ((x<->y) & (y <-> z)))[
-    display(please enter at least one false);
+    display("please enter at least one false");
 ]
 
-display(expression, x->y);
+display("expression: ", x->y);
 finish
