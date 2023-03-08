@@ -1,0 +1,23 @@
+start
+
+boolean foo(p,q,r)[
+    display(get_function_name());
+    display(get_name(p) , ": ", p);
+    display(q.get_name() , ": ", q);
+    display(r.get_name() , ": ", r);
+
+    if(r)[
+        return p -> (q | r)
+    ]
+
+    return q<->r
+]
+
+hash_array data = {himym:true,himym_ending:false,friends:true,b99:true,modernfamily:true,riverdale:false}
+foreach a in data[
+    foreach b in data[
+        c = foo(p,q,false)
+        display(a,b,c)
+    ]
+]
+finish
