@@ -1,0 +1,78 @@
+start
+
+
+## Program 4 ##
+
+boolean x,y;  
+
+## giving x and y boolean values using Veritas language reserved words ##
+x = veritas;
+y = falsus;
+
+## we want to separate everything to two lists , one is all true, other is all false ##
+
+HashArray true_list = {x};
+HashArray false_llist = {y};
+
+
+##taking values from the user and assigning them as constant booleans ##
+const boolean a1 = scanInput("enter your first constant: ");
+const boolean a2 = scanInput("enter your second constant: ");
+const boolean a3 = scanInput("enter you third constant: ");
+
+
+##adding all inputs to a separate list ##
+HashArray input_list = {};
+
+input_list.addHash(a1);
+input_list.addHash(a2);
+input_list.addHash(a3);
+
+## if all of the input values were true, directly add all of them to the list containing all true values ##
+if(input_list.allTrueHash())[
+    
+    true_list.addHash(a1);
+    true_list.addHash(a2);
+    true_list.addHash(a3);
+
+    ##clean the input list when we are done ##
+    input_list.deleteAllTrue();
+    display("Inputs were all true");
+
+]
+## if all of the input values were false, directly add all of them to the list containing all false values ##
+if(input_list.allFalseHash())[
+    
+    false_list.addHash(a1);
+    false_list.addHash(a2);
+    false_list.addHash(a3);
+    false_list.deleteAllFalse();
+    display("Inputs were all false");
+]
+
+## if the input values were mixed with true and false values, iterate through the list and add the items to the correct list ##
+else[
+    foreach item in input_list[
+
+        if(item !! true)[
+            false_list.addHash(item);
+        ]
+
+        else[
+            true_list.addHash(item);
+        ]
+        
+    ]
+
+    input_list.deleteAllTrue();
+    input_list.deleteAllFalse();
+
+    display("Inputs consist of both true and false values");
+    
+    
+
+
+]
+
+
+finish

@@ -1,0 +1,41 @@
+start
+
+boolean foo(p,q,r)[
+    display("foo");
+    display("p: ");
+    display(p);
+    display("q: ");
+    display(q);
+    display("r: ");
+    display(r);
+
+    if(r)[
+        return (p -> (q || r))
+    ]
+
+    return q<->r
+]
+
+boolean himym,himym_ending,friends,modernfamily,riverdale;
+himym = true;
+himym_ending = false;
+friends = true;
+modernfamily = true;
+riverdale = false;
+
+## create a hash array using predefined identifiers above ##
+HashArray data = {himym,himym_ending,friends,modernfamily,riverdale};
+HashArray data2 = {true}
+foreach a in data[
+    foreach b in data[
+        c = foo(a,b,false)
+        display("a: ");
+        display(a);
+        display("b: ");
+        display(b);
+        display("c: ");
+        display(c);
+    
+    ]
+]
+finish
