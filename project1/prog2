@@ -16,7 +16,7 @@ boolean foo(p,q,r)[
 hash_array data = {himym:true,himym_ending:false,friends:true,b99:true,modernfamily:true,riverdale:false}
 foreach a in data[
     foreach b in data[
-        c = foo(p,q,false)
+        c = foo(a,b,false)
         display(a,b,c)
     ]
 ]
