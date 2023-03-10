@@ -1,6 +1,6 @@
 start
 
-boolean foo(p,q,r)[
+boolean foo(boolean p,boolean q, boolean r)[
     display("foo");
     display("p: ");
     display(p);
