@@ -14,9 +14,10 @@ false false|{constant_false}
 const_str  \"(.)*\"
 boolean ({true}|{false})
 type ({boolean}|{hash_array})
-tag ({boolean_tag} | {hash_array_tag})
+tag ({boolean_tag} | {hash_array_tag} | {void_tag})
 boolean_tag boolean
 hash_array_tag HashArray
+void_tag void
 foreach foreach
 in in
 while while
@@ -24,8 +25,6 @@ do do
 scan_input  scanInput
 display display
 print_hash printHash
-get_name getName
-get_function_name getFunctionName
 add_to_hash addHash
 delete_all_false deleteAllFalse
 delete_all_true deleteAllTrue
@@ -66,11 +65,10 @@ const           printf("CONST  ");
 {do}    printf("DO ");
 {hash_array_tag}   printf("HASH_ARRAY_TAG ");
 {boolean_tag}   printf("BOOLEAN_TAG ");
+{void_tag}        printf("VOID_TAG ");
 {scan_input}           printf("SCAN_INPUT ");
 {display}              printf("DISPLAY ");
 {print_hash}           printf("PRINT_HASH ");
-{get_name}             printf("GET_NAME ");
-{get_function_name}    printf("GET_FUNCTION_NAME ");
 {add_to_hash}          printf("ADD_TO_HASH ");
 {delete_all_false}     printf("DELETE_ALL_FALSE ");
 {delete_all_true}      printf("DELETE_ALL_TRUE ");
