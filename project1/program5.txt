@@ -17,14 +17,14 @@ display(arr1.isEmpty());
 
 
 arr1.addHash(a, b, c);
-print_hash(arr1);
+printHash(arr1);
 
 arr1.deleteAllFalse();
-print_hash(arr1);
+printHash(arr1);
 display(arr1.isEmpty());
 
 arr1.addHash(c, d);
-print_hash(arr1);
+printHash(arr1);
 arr1.deleteAllTrue();
 
 ## Take in values into the HashArray ##
@@ -35,9 +35,9 @@ while (arr1.allFalseHash()) [
     const boolean alwaysTrue = true;
     temp = scanInput("Enter value: ");
     arr1.addHash(temp);
-    print_hash(arr1);
+    printHash(arr1);
     arr1.addHash(alwaysTrue);
-    print_hash(arr1);
+    printHash(arr1);
     arr1.deleteAllTrue();
 ]
 
