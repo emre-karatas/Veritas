@@ -1,3 +1,11 @@
+%{
+#include <stdio.h>
+#include <stdlib.h>
+int yylex(void);
+void yyerror(char* s);
+extern int yylineno;
+%}
+
 %token IMPLICATION_OP
 %token DOUBLE_IMPLICATION_OP
 %token COMMENT
@@ -291,3 +299,11 @@ return_stmt:
         | hash_array
         
 %%
+void yyerror(char *s) {
+	  printf("syntax error \n%s on line %d\n", s, yylineno);
+}
+
+int main(void){
+     yyparse();
+}
+

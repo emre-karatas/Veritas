@@ -1,3 +1,9 @@
+%{
+#include <stdio.h>
+#include "y.tab.h"
+void yyerror(char *);
+%}
+
 digit [0-9]
 letter [a-zA-Z]
 implication_op \-\>
