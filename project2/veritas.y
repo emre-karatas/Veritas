@@ -93,7 +93,88 @@ program:
 
     declaration_assign: TAG assign_stmt | CONST TAG identifier_list
 
-    identifier_list: IDENTIFIER SC | IDENTIFIER COMMA identifier_list
+    identifier_list: 
+        IDENTIFIER SC 
+        | IDENTIFIER COMMA identifier_list
+
+    operation: 
+        basic_operation 
+        | LEFT_PARENTHESIS operation RIGHT_PARENTHESIS
+
+    identifier_combinations: 
+        IDENTIFIER 
+        | basic_operation 
+
+    basic_operation : 
+        logical_operation 
+        | LEFT_PARENTHESIS basic_operation RIGHT_PARENTHESIS
+
+    logical_operation : 
+        identifier_combinations DOUBLE_IMPLICATION_OP identifier_combinations 
+        | logical_operation2
+
+    logical_operation2 : 
+        identifier_combinations IMPLICATION_OP identifier_combinations 
+        | logical_operation3
+
+    logical_operation3 : 
+        identifier_combinations OR_OP identifier_combinations 
+        | logical_operation4
+
+    logical_operation4 : 
+        identifier_combinations AND_OP identifier_combinations 
+        | logical_operation5
+
+    logical_operation5 : 
+        identifier_combinations equality_check identifier_combinations 
+        | logical_operation6
+
+    logical_operation6: 
+        NOT_OP identifier_combinations 
+        | logical_operations7
+
+    logical_operations7: 
+        LEFT_PARENTHESIS basic_operation RIGHT_PARENTHESIS
+
+    equality_check: 
+        EQUALITY_OP 
+        | NOT_EQUAL_OP
+
+    implication: 
+        identifier_combinations IMPLICATION_OP identifier_combinations
+
+    double_implication: 
+        identifier_combinations DOUBLE_IMPLICATION_OP identifier_combinations
+
+    loop_stmt : 
+        while_loop 
+        | for_loop
+
+    while_loop: 
+        WHILE LEFT_PARENTHESIS operation RIGHT_PARENTHESIS LEFT_BRACES stmt RIGHT_BRACES
+        | DO LEFT_BRACES stmt RIGHT_BRACES WHILE LEFT_PARENTHESIS operation RIGHT_PARENTHESIS SC
+
+    for_loop: 
+        FOR_EACH IDENTIFIER IN IDENTIFIER LEFT_BRACES stmt RIGHT_BRACES
+        | IDENTIFIER IN hash_array LEFT_BRACES stmt RIGHT_BRACES
+
+    method_declare: 
+        return_type IDENTIFIER LEFT_PARENTHESIS parameter_list RIGHT_PARENTHESIS LEFT_BRACES stmt RETURN return_stmt RIGHT_BRACES
+
+    parameter_list: 
+        parameter 
+        | parameter COMMA parameter_list
+        | IS_EMPTY
+
+    parameter: TAG IDENTIFIER
+
+    method_call: 
+        IDENTIFIER LEFT_PARENTHESIS parameter_identifier RIGHT_PARENTHESIS SC
+        | IDENTIFIER LEFT_PARENTHESIS IS_EMPTY RIGHT_PARENTHESIS SC
+
+    parameter_identifier: 
+        IDENTIFIER 
+        | IDENTIFIER COMMA parameter_identifier
 
 
 
