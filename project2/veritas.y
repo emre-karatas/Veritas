@@ -97,9 +97,9 @@ program:
 
     declaration_stmt: declaration | declaration_assign | hash_array_declaration
 
-    declaration: TAG identifier_list
+    declaration: data_type identifier_list
 
-    declaration_assign: TAG assign_stmt | CONST TAG identifier_list
+    declaration_assign: data_type assign_stmt | CONST TAG identifier_list
 
     identifier_list: 
         IDENTIFIER SC 
