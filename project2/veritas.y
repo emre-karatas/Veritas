@@ -98,7 +98,7 @@ program:
 
     declaration: data_type identifier_list
 
-    declaration_assign: data_type assign_stmt | CONST TAG identifier_list
+    declaration_assign: data_type assign_stmt | CONST data_type identifier_list
 
     identifier_list: 
         IDENTIFIER SC 
