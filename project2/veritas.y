@@ -189,8 +189,8 @@ comment:
         COMMENT
 	
 hash_array_declaration:
-        HASH_ARRAY_TAG IDENTIFIER EQUALITY_OP hash_array
-        | HASH_ARRAY_TAG IDENTIFIER EQUALITY_OP method_call
+        HASH_ARRAY_TAG IDENTIFIER ASSIGN_OP hash_array
+        | HASH_ARRAY_TAG IDENTIFIER ASSIGN_OP method_call
 hash_array:
         LEFT_CURLY item_list RIGHT_CURLY
 item_list:
