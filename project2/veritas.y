@@ -188,17 +188,18 @@ program:
 
 comment:
         COMMENT
+	
 hash_array_declaration:
-        HASH_ARRAY_TAG identifier equality_op hash_array
-        | HASH_ARRAY_TAG identifier equality_op method_call
+        HASH_ARRAY_TAG IDENTIFIER EQUALITY_OP hash_array
+        | HASH_ARRAY_TAG IDENTIFIER EQUALITY_OP method_call
 hash_array:
-        left_curly item_list right_curly
+        LEFT_CURLY item_list RIGHT_CURLY
 item_list:
         item
-        | item comma item_list
+        | item COMMA item_list
 item:
-        identifier
-        | BOOLEAN_TAG
+        IDENTIFIER
+        | boolean
         | empty
         
 primitive_methods:
@@ -215,84 +216,48 @@ primitive_methods:
         | is_empty
         
 scan_input:
-        SCAN_INPUT left_paranthesis io_str right_paranthesis
+        SCAN_INPUT LEFT_PARENTHESIS STR RIGHT_PARENTHESIS
         
 display:
-        DISPLAY left_paranthesis output right_paranthesis
+        DISPLAY LEFT_PARENTHESIS output RIGHT_PARENTHESIS
 output:
-        io_str
-        | identifier
+        STR
+        | IDENTIFIER
         | boolean
 print_hash:
-        PRINT_HASH left_paranthesis identifier right_paranthesis
-        | PRINT_HASH left_paranthesis hash_array right_paranthesis
+        PRINT_HASH LEFT_PARENTHESIS IDENTIFIER RIGHT_PARENTHESIS
+        | PRINT_HASH LEFT_PARENTHESIS hash_array RIGHT_PARENTHESIS
 add_to_hash:
-        identifier DOT ADD_TO_HASH left_paranthesis identifier right_paranthesis
-        | identifier DOT ADD_TO_HASH left_paranthesis BOOLEAN_TAG right_paranthesis
+        IDENTIFIER DOT ADD_TO_HASH LEFT_PARENTHESIS IDENTIFIER RIGHT_PARENTHESIS
+        | IDENTIFIER DOT ADD_TO_HASH LEFT_PARENTHESIS BOOLEAN_TAG RIGHT_PARENTHESIS
 delete_all_false:
-        identifier DOT DELETE_ALL_FALSE left_paranthesis right_paranthesis
+        IDENTIFIER DOT DELETE_ALL_FALSE LEFT_PARENTHESIS RIGHT_PARENTHESIS
 delete_all_true:
-        identifier DOT DELETE_ALL_TRUE left_paranthesis right_paranthesis
+        IDENTIFIER DOT DELETE_ALL_TRUE LEFT_PARENTHESIS RIGHT_PARENTHESIS
 all_true_hash:
-        identifier DOT ALL_TRUE_HASH left_paranthesis right_paranthesis
+        IDENTIFIER DOT ALL_TRUE_HASH LEFT_PARENTHESIS RIGHT_PARENTHESIS
 all_false_hash:
-        identifier DOT ALL_FALSE_HASH left_paranthesis right_paranthesis
+        IDENTIFIER DOT ALL_FALSE_HASH LEFT_PARENTHESIS RIGHT_PARENTHESIS
 is_empty:
-        identifier DOT IS_EMPTY left_paranthesis right_paranthesis
-start:
-        START
-finish:
-        FINISH
-sc:
-        SC
-comma:
-        COMMA
-assign_op:
-        ASSIGN_OP
-equality_op:
-        EQUALITY_OP
-not_equal_op:
-        NOT_EQUAL_OP
-not_operation:
-        NOT_OP
-and:
-        AND_OP
-or:
-        OR_OP
-left_braces:
-        LEFT_BRACES
-right_braces:
-        RIGHT_BRACES
-left_curly:
-        LEFT_CURLY
-right_curly:
-        RIGHT_CURLY
-left_paranthesis:
-        LEFT_PARENTHESIS
-righ_paranthesis
-        RIGHT_PARENTHESIS
+        IDENTIFIER DOT IS_EMPTY LEFT_PARENTHESIS RIGHT_PARENTHESIS
+
+
 empty:
 
 data_type:
-    BOOLEAN_TAG
-    | HASH_ARRAY_TAG
-implication_single_symbol:
-        IMPLICATION_OP
-
-implication_double_symbol:
-        DOUBLE_IMPLICATION_OP
+    	BOOLEAN_TAG
+    	| HASH_ARRAY_TAG
+	
 identifier:
         IDENTIFIER
-io_str:
-    STR
+
 return_type:
         VOID_TAG
         | BOOLEAN_TAG
         | hash_array
-return:
-        RETURN
+
 return_stmt:
-        identifier
+        IDENTIFIER
         | BOOLEAN_TAG
         | method_call
         | operation
