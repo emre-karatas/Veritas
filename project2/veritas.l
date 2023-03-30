@@ -10,10 +10,8 @@ implication_op \-\>
 double_implication_op \<\-\>
 identifier_rest  ({digit}|{letter}|_)
 line_comment \#\#(.)*\#\#
-true true|{constant_true}
-false false|{constant_false}
 const_str  \"(.)*\"
-boolean ({true}|{false})
+boolean (true|false)
 data_type ({boolean}|{hash_array})
 tag ({boolean_tag} | {hash_array_tag} | {void_tag})
 boolean_tag boolean
@@ -79,8 +77,8 @@ const           return CONST;
 {all_false_hash}       return ALL_FALSE_HASH;
 {is_empty}             return IS_EMPTY;
 {const_str}   return STR;
-{true}    return TRUE;
-{false}   return FALSE;
+true    return TRUE;
+false   return FALSE;
 {identifier} return IDENTIFIER;
 
 %%
