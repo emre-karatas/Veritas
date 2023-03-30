@@ -206,8 +206,6 @@ primitive_methods:
         scan_input
         | display
         | print_hash
-        | get_name
-        | get_function_name
         | add_to_hash
         | delete_all_false
         | delete_all_true
