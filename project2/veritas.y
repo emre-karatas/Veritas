@@ -250,7 +250,7 @@ data_type:
 return_type:
         VOID_TAG
         | BOOLEAN_TAG
-        | hash_array
+        | HASH_ARRAY_TAG
 
 return_stmt:
         IDENTIFIER
