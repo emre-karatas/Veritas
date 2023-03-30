@@ -65,7 +65,7 @@ program:
     stmt_list:
         stmt SC |
         stmt SC stmt_list
-	| error SEMICOLON {yyerrok;}
+	| error SC {yyerrok;}
 
     stmt:
         matched | unmatched
