@@ -1,0 +1,58 @@
+start
+
+## Create a HashArray ##
+
+HashArray arr1 = {};
+boolean a,b,c,d;
+a = true;
+b = veritas;
+c = false;
+d = falsus;
+
+## Print if the HashArray is empty or not ##
+
+display(arr1.isEmpty());
+
+## Add and delete from HashArray ##
+
+
+arr1.addHash(a, b, c);
+printHash(arr1);
+
+arr1.deleteAllFalse();
+printHash(arr1);
+display(arr1.isEmpty());
+
+arr1.addHash(c, d);
+printHash(arr1);
+arr1.deleteAllTrue();
+
+## Take in values into the HashArray ##
+
+
+while (arr1.allFalseHash()) [
+    boolean temp;
+    const boolean alwaysTrue = true;
+    temp = scanInput("Enter value: ");
+    arr1.addHash(temp);
+    printHash(arr1);
+    arr1.addHash(alwaysTrue);
+    printHash(arr1);
+    arr1.deleteAllTrue();
+]
+
+## Now let's control implication and double implication and logical operations ##
+
+if ( !a -> !(b !! c) ) [
+    display("True");
+]
+
+if ( (a && b) || ( c -> d ) ) [ 
+    display("True");
+]
+else [
+    display("False");
+]
+
+
+finish
