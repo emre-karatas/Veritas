@@ -171,13 +171,13 @@ program:
     parameter_list: 
         parameter 
         | parameter COMMA parameter_list
-        | IS_EMPTY
+        | empty
 
     parameter: data_type IDENTIFIER
 
     method_call: 
         IDENTIFIER LEFT_PARENTHESIS parameter_identifier RIGHT_PARENTHESIS SC
-        | IDENTIFIER LEFT_PARENTHESIS IS_EMPTY RIGHT_PARENTHESIS SC
+        | IDENTIFIER LEFT_PARENTHESIS empty RIGHT_PARENTHESIS SC
 
     parameter_identifier: 
         IDENTIFIER 
