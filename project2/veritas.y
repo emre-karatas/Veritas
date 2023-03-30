@@ -90,8 +90,7 @@ program:
                 | IDENTIFIER ASSIGN_OP method_call
                 | IDENTIFIER ASSIGN_OP operation
                 | IDENTIFIER ASSIGN_OP data_type
-    
-    data_type: hash_array | boolean
+   
     
     boolean: TRUE | FALSE
 
