@@ -174,7 +174,7 @@ program:
         | parameter COMMA parameter_list
         | IS_EMPTY
 
-    parameter: TAG IDENTIFIER
+    parameter: data_type IDENTIFIER
 
     method_call: 
         IDENTIFIER LEFT_PARENTHESIS parameter_identifier RIGHT_PARENTHESIS SC
