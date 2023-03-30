@@ -198,8 +198,8 @@ item_list:
         | item comma item_list
 item:
         identifier
-        | boolean!!!! boolean tokenla nonterminalla ayni olmasi sikinti yaratabilir
-        | empty!!!!!
+        | BOOLEAN_TAG
+        | empty
         
 primitive_methods:
         scan_input
@@ -228,7 +228,7 @@ print_hash:
         | PRINT_HASH left_paranthesis hash_array right_paranthesis
 add_to_hash:
         identifier DOT ADD_TO_HASH left_paranthesis identifier right_paranthesis
-        | identifier DOT ADD_TO_HASH left_paranthesis boolean right_paranthesis
+        | identifier DOT ADD_TO_HASH left_paranthesis BOOLEAN_TAG right_paranthesis
 delete_all_false:
         identifier DOT DELETE_ALL_FALSE left_paranthesis right_paranthesis
 delete_all_true:
