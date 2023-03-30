@@ -59,7 +59,7 @@ extern int yylineno;
 %%
 
 program:
-    START stmt_list FINISH
+    START stmt_list FINISH{printf("There were no errors.\n");};
 
 
     stmt_list:
