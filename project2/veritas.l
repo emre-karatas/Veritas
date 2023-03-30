@@ -60,7 +60,7 @@ return          return RETURN;
 if              return IF;
 else            return ELSE;
 const           return CONST;
-{foreach} return FOR_EACH  ;
+{foreach} return FOR_EACH;
 {in}  return IN;
 {while} return WHILE;
 {do}    return DO;
