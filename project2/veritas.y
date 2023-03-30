@@ -28,9 +28,6 @@ extern int yylineno;
 %token ALL_FALSE_HASH
 %token IS_EMPTY
 %token IDENTIFIER
-
-
-
 %token SC
 %token COMMA
 %token COLON
@@ -94,12 +91,14 @@ program:
    
     
     boolean: TRUE | FALSE
+    
+    tag: BOOLEAN_TAG | HASH_ARRAY_TAG
 
     declaration_stmt: declaration | declaration_assign | hash_array_declaration
 
-    declaration: data_type identifier_list
+    declaration: tag identifier_list
 
-    declaration_assign: data_type assign_stmt | CONST data_type identifier_list
+    declaration_assign: tag assign_stmt | CONST tag identifier_list
 
     identifier_list: 
         IDENTIFIER SC 
@@ -243,8 +242,7 @@ is_empty:
 empty:
 
 data_type:
-    	BOOLEAN_TAG
-    	| HASH_ARRAY_TAG
+    	hash_array| boolean
 	
 
 
