@@ -55,7 +55,7 @@ extern int yylineno;
 %token ELSE
 %token CONST
 %token FOR_EACH
-
+%start program
 %%
 
 program:
