@@ -245,8 +245,7 @@ data_type:
     	BOOLEAN_TAG
     	| HASH_ARRAY_TAG
 	
-identifier:
-        IDENTIFIER
+
 
 return_type:
         VOID_TAG
