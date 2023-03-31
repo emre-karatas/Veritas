@@ -175,7 +175,7 @@ program:START stmt_list FINISH;
 
     method_call: 
         IDENTIFIER LEFT_PARENTHESIS parameter_identifier RIGHT_PARENTHESIS SC
-        | IDENTIFIER LEFT_PARENTHESIS empty RIGHT_PARENTHESIS SC
+        | IDENTIFIER LEFT_PARENTHESIS empty RIGHT_PARENTHESIS SC | primitive_methods
 
     parameter_identifier: 
         IDENTIFIER 
