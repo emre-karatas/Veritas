@@ -91,6 +91,7 @@ program:START stmt_list FINISH;
     
     assign_stmt:  IDENTIFIER ASSIGN_OP operation
                 | IDENTIFIER ASSIGN_OP data_type
+		|  IDENTIFIER ASSIGN_OP method_call
    
     
     boolean: TRUE | FALSE
@@ -109,10 +110,6 @@ program:START stmt_list FINISH;
         logical_operation 
         | LEFT_PARENTHESIS operation RIGHT_PARENTHESIS
 
-
-    identifier_combinations: 
-        IDENTIFIER 
-        | method_call
 
 
     logical_operation : 
@@ -140,7 +137,7 @@ program:START stmt_list FINISH;
         | logical_operations7
 
     logical_operations7: 
-        identifier_combinations |
+        IDENTIFIER |
         LEFT_PARENTHESIS operation RIGHT_PARENTHESIS
 
     equality_check: 
