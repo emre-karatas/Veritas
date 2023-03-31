@@ -108,42 +108,41 @@ program:START stmt_list FINISH;
         | IDENTIFIER COMMA identifier_list
 
    operation: 
-        basic_operation 
+        logical_operation 
         | LEFT_PARENTHESIS operation RIGHT_PARENTHESIS
+
 
     identifier_combinations: 
         IDENTIFIER 
-        | basic_operation 
+        | method_call
 
-    basic_operation : 
-        logical_operation 
-        | LEFT_PARENTHESIS basic_operation RIGHT_PARENTHESIS
 
     logical_operation : 
-        identifier_combinations DOUBLE_IMPLICATION_OP identifier_combinations 
+        logical_operation DOUBLE_IMPLICATION_OP logical_operation2 
         | logical_operation2
 
     logical_operation2 : 
-        identifier_combinations IMPLICATION_OP identifier_combinations 
+        logical_operation2 IMPLICATION_OP logical_operation3 
         | logical_operation3
 
     logical_operation3 : 
-        identifier_combinations OR_OP identifier_combinations 
+        logical_operation3 OR_OP logical_operation4 
         | logical_operation4
 
     logical_operation4 : 
-        identifier_combinations AND_OP identifier_combinations 
+        logical_operation4 AND_OP logical_operation5 
         | logical_operation5
 
     logical_operation5 : 
-        identifier_combinations equality_check identifier_combinations 
+        logical_operation5 equality_check logical_operation6 
         | logical_operation6
 
     logical_operation6: 
-        NOT_OP identifier_combinations 
+        NOT_OP logical_operation6 
         | logical_operations7
 
     logical_operations7: 
+        identifier_combinations |
         LEFT_PARENTHESIS operation RIGHT_PARENTHESIS
 
     equality_check: 
