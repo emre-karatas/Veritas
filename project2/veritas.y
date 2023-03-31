@@ -82,9 +82,6 @@ program:START stmt_list FINISH;
     non_if_statement: expression SC |  COMMENT | operation | loop_stmt 
 
     expression: assign_stmt | declaration_stmt |method_declare | method_call | empty
-    assign_stmt: IDENTIFIER ASSIGN_OP IDENTIFIER 
-                | IDENTIFIER ASSIGN_OP operation
-                | IDENTIFIER ASSIGN_OP data_type
    
 
     assign_stmt: IDENTIFIER ASSIGN_OP IDENTIFIER 
