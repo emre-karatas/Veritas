@@ -144,7 +144,7 @@ program:START stmt_list FINISH;
         | logical_operations7
 
     logical_operations7: 
-        LEFT_PARENTHESIS basic_operation RIGHT_PARENTHESIS
+        LEFT_PARENTHESIS operation RIGHT_PARENTHESIS
 
     equality_check: 
         EQUALITY_OP 
