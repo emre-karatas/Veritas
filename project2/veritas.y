@@ -1,6 +1,7 @@
 %{
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 int yylex(void);
 void yyerror(char* s);
 extern int yylineno;
@@ -52,37 +53,39 @@ extern int yylineno;
 %token ELSE
 %token CONST
 %token FOR_EACH
+
 %start program
+
 %%
 
-program:
-    START stmt_list FINISH {printf("There were no errors.\n");};
+program:START stmt_list FINISH;
 
 
     stmt_list:
-        stmt SC |
-        stmt SC stmt_list
-	| error SC {yyerrok;}
+        stmt|
+        stmt stmt_list|
+        error SC {yyerrok;}
 
     stmt:
         matched | unmatched
 
     matched:
         IF LEFT_PARENTHESIS operation RIGHT_PARENTHESIS LEFT_BRACES matched RIGHT_BRACES ELSE LEFT_BRACES matched RIGHT_BRACES
-        | IF LEFT_PARENTHESIS operation RIGHT_PARENTHESIS LEFT_BRACES matched RIGHT_BRACES else_if_stmts
-        | IF LEFT_PARENTHESIS operation RIGHT_PARENTHESIS LEFT_BRACES matched RIGHT_BRACES else_if_stmts ELSE LEFT_BRACES matched RIGHT_BRACES
         | non_if_statement
 
 
-    else_if_stmts: else_if_stmt | else_if_stmt else_if_stmts
-    else_if_stmt: ELSEIF LEFT_PARENTHESIS operation RIGHT_PARENTHESIS LEFT_BRACES matched RIGHT_BRACES
 
-    unmatched: IF LEFT_PARENTHESIS operation RIGHT_PARENTHESIS LEFT_BRACES stmt RIGHT_BRACES
-                | IF LEFT_PARENTHESIS operation RIGHT_PARENTHESIS LEFT_BRACES matched RIGHT_BRACES ELSE unmatched RIGHT_BRACES
+    unmatched: IF LEFT_PARENTHESIS operation RIGHT_PARENTHESIS LEFT_BRACES matched RIGHT_BRACES
+        |IF LEFT_PARENTHESIS operation RIGHT_PARENTHESIS LEFT_BRACES unmatched RIGHT_BRACES
+        |IF LEFT_PARENTHESIS operation RIGHT_PARENTHESIS LEFT_BRACES matched RIGHT_BRACES  ELSE LEFT_BRACES unmatched RIGHT_BRACES
     
-    non_if_statement: non_if_expression | non_if_expression SC non_if_statement
+    non_if_statement: expression SC |  COMMENT | operation | loop_stmt 
 
-    non_if_expression: assign_stmt | declaration_stmt | operation | loop_stmt | method_declare | method_call | COMMENT
+    expression: assign_stmt | declaration_stmt |method_declare | method_call | empty
+    assign_stmt: IDENTIFIER ASSIGN_OP IDENTIFIER 
+                | IDENTIFIER ASSIGN_OP operation
+                | IDENTIFIER ASSIGN_OP data_type
+   
 
     assign_stmt: IDENTIFIER ASSIGN_OP IDENTIFIER 
                 | IDENTIFIER ASSIGN_OP method_call
@@ -96,15 +99,23 @@ program:
 
     declaration_stmt: declaration | declaration_assign | hash_array_declaration
 
-    declaration: tag identifier_list
+    declaration: BOOLEAN_TAG identifier_list
 
-    declaration_assign: tag assign_stmt | CONST tag identifier_list
+    declaration_assign: BOOLEAN_TAG assign_stmt | CONST tag identifier_list
 
     identifier_list: 
         IDENTIFIER SC 
         | IDENTIFIER COMMA identifier_list
 
     operation: 
+            IDENTIFIER OR_OP IDENTIFIER
+           |  IDENTIFIER AND_OP IDENTIFIER
+           | IDENTIFIER EQUALITY_OP IDENTIFIER
+           | IDENTIFIER NOT_EQUAL_OP IDENTIFIER
+           | IDENTIFIER IMPLICATION_OP IDENTIFIER
+           | IDENTIFIER DOUBLE_IMPLICATION_OP IDENTIFIER
+
+   operation: 
         basic_operation 
         | LEFT_PARENTHESIS operation RIGHT_PARENTHESIS
 
@@ -183,94 +194,89 @@ program:
         IDENTIFIER 
         | IDENTIFIER COMMA parameter_identifier
 
-
-
-comment:
-        COMMENT
 	
-hash_array_declaration:
-        HASH_ARRAY_TAG IDENTIFIER ASSIGN_OP hash_array
-        | HASH_ARRAY_TAG IDENTIFIER ASSIGN_OP method_call
-hash_array:
-        LEFT_CURLY item_list RIGHT_CURLY
-item_list:
-        item
-        | item COMMA item_list
-item:
-        IDENTIFIER
-        | boolean
-        | empty
+    hash_array_declaration:
+            HASH_ARRAY_TAG IDENTIFIER ASSIGN_OP hash_array
+            | HASH_ARRAY_TAG IDENTIFIER ASSIGN_OP method_call
+    hash_array:
+            LEFT_CURLY item_list RIGHT_CURLY
+    item_list:
+            item
+            | item COMMA item_list
+    item:
+            IDENTIFIER
+            | boolean
+            | empty
+            
+    primitive_methods:
+            scan_input
+            | display
+            | print_hash
+            | add_to_hash
+            | delete_all_false
+            | delete_all_true
+            | all_true_hash
+            | all_false_hash
+            | is_empty
+            
+    scan_input:
+            SCAN_INPUT LEFT_PARENTHESIS STR RIGHT_PARENTHESIS
+            
+    display:
+            DISPLAY LEFT_PARENTHESIS output RIGHT_PARENTHESIS
+    output:
+            STR
+            | IDENTIFIER
+            | boolean
+    print_hash:
+            PRINT_HASH LEFT_PARENTHESIS IDENTIFIER RIGHT_PARENTHESIS
+            | PRINT_HASH LEFT_PARENTHESIS hash_array RIGHT_PARENTHESIS
+    add_to_hash:
+            IDENTIFIER DOT ADD_TO_HASH LEFT_PARENTHESIS IDENTIFIER RIGHT_PARENTHESIS
+            | IDENTIFIER DOT ADD_TO_HASH LEFT_PARENTHESIS BOOLEAN_TAG RIGHT_PARENTHESIS
+    delete_all_false:
+            IDENTIFIER DOT DELETE_ALL_FALSE LEFT_PARENTHESIS RIGHT_PARENTHESIS
+    delete_all_true:
+            IDENTIFIER DOT DELETE_ALL_TRUE LEFT_PARENTHESIS RIGHT_PARENTHESIS
+    all_true_hash:
+            IDENTIFIER DOT ALL_TRUE_HASH LEFT_PARENTHESIS RIGHT_PARENTHESIS
+    all_false_hash:
+            IDENTIFIER DOT ALL_FALSE_HASH LEFT_PARENTHESIS RIGHT_PARENTHESIS
+    is_empty:
+            IDENTIFIER DOT IS_EMPTY LEFT_PARENTHESIS RIGHT_PARENTHESIS
+
+
+    empty:
+
+    data_type:
+            hash_array| boolean
         
-primitive_methods:
-        scan_input
-        | display
-        | print_hash
-        | add_to_hash
-        | delete_all_false
-        | delete_all_true
-        | all_true_hash
-        | all_false_hash
-        | is_empty
+
+
+    return_type:
+            VOID_TAG
+            | BOOLEAN_TAG
+            | HASH_ARRAY_TAG
+
+    return_stmt:
+            IDENTIFIER
+            | BOOLEAN_TAG
+            | method_call
+            | operation
+            | hash_array
+
         
-scan_input:
-        SCAN_INPUT LEFT_PARENTHESIS STR RIGHT_PARENTHESIS
-        
-display:
-        DISPLAY LEFT_PARENTHESIS output RIGHT_PARENTHESIS
-output:
-        STR
-        | IDENTIFIER
-        | boolean
-print_hash:
-        PRINT_HASH LEFT_PARENTHESIS IDENTIFIER RIGHT_PARENTHESIS
-        | PRINT_HASH LEFT_PARENTHESIS hash_array RIGHT_PARENTHESIS
-add_to_hash:
-        IDENTIFIER DOT ADD_TO_HASH LEFT_PARENTHESIS IDENTIFIER RIGHT_PARENTHESIS
-        | IDENTIFIER DOT ADD_TO_HASH LEFT_PARENTHESIS BOOLEAN_TAG RIGHT_PARENTHESIS
-delete_all_false:
-        IDENTIFIER DOT DELETE_ALL_FALSE LEFT_PARENTHESIS RIGHT_PARENTHESIS
-delete_all_true:
-        IDENTIFIER DOT DELETE_ALL_TRUE LEFT_PARENTHESIS RIGHT_PARENTHESIS
-all_true_hash:
-        IDENTIFIER DOT ALL_TRUE_HASH LEFT_PARENTHESIS RIGHT_PARENTHESIS
-all_false_hash:
-        IDENTIFIER DOT ALL_FALSE_HASH LEFT_PARENTHESIS RIGHT_PARENTHESIS
-is_empty:
-        IDENTIFIER DOT IS_EMPTY LEFT_PARENTHESIS RIGHT_PARENTHESIS
 
-
-empty:
-
-data_type:
-    	hash_array| boolean
-	
-
-
-return_type:
-        VOID_TAG
-        | BOOLEAN_TAG
-        | HASH_ARRAY_TAG
-
-return_stmt:
-        IDENTIFIER
-        | BOOLEAN_TAG
-        | method_call
-        | operation
-        | hash_array
-        
 %%
-#include "lex.yy.c"
-int line_number = 1;
 bool error = false;
-
 void yyerror(char *s) {
-    error = true;
-    printf("[%s] Syntax error on line %d!\n", s, line_number);
+  error = true;
+	  printf("\n%s on line %d\n", s, yylineno);
 }
 
-int main() {
-    yyparse();
-    if (error == false) {
+int main(void){
+     yyparse();
+     if (error == false) {
         printf("Input program is valid\n");
         return 0;
     }
