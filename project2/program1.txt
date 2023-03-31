@@ -1,17 +1,11 @@
 start
-
 ##Part C program 1 in the language veritas ##
-
 boolean x,y,z;
-
-
-do
-[
+do[
     x = scan_input("enter value x: ");
     y = scan_input("enter value y: ");
     z = scan_input("enter value z: ");
-]
-while( (x && y) && z)
+]while( (x && y) && z)
 [
     display("please enter at least one false! ");
 ]
