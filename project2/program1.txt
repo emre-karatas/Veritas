@@ -1,4 +1,3 @@
-
 start
 
 ##Part C program 1 in the language veritas ##
