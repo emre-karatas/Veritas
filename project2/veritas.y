@@ -108,7 +108,7 @@ program:START stmt_list FINISH;
 
    operation: 
         logical_operation 
-        | LEFT_PARENTHESIS operation RIGHT_PARENTHESIS
+        | NOT_OP logical_operation
 
 
 
@@ -130,13 +130,10 @@ program:START stmt_list FINISH;
 
     logical_operation5 : 
         logical_operation5 equality_check logical_operation6 
+        | logical_operation5 boolean
         | logical_operation6
 
-    logical_operation6: 
-        NOT_OP logical_operation6 
-        | logical_operations7
-
-    logical_operations7: 
+    logical_operations6: 
         IDENTIFIER |
         LEFT_PARENTHESIS operation RIGHT_PARENTHESIS
 
