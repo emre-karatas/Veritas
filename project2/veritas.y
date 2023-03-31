@@ -150,11 +150,6 @@ program:START stmt_list FINISH;
         EQUALITY_OP 
         | NOT_EQUAL_OP
 
-    implication: 
-        identifier_combinations IMPLICATION_OP identifier_combinations
-
-    double_implication: 
-        identifier_combinations DOUBLE_IMPLICATION_OP identifier_combinations
 
     loop_stmt : 
         while_loop 
