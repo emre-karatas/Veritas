@@ -71,7 +71,13 @@ program:START stmt_list FINISH;
 
     matched:
         IF LEFT_PARENTHESIS operation RIGHT_PARENTHESIS LEFT_BRACES matched RIGHT_BRACES ELSE LEFT_BRACES matched RIGHT_BRACES
+        | IF LEFT_PARENTHESIS operation RIGHT_PARENTHESIS LEFT_BRACES matched RIGHT_BRACES else_if_stmts
+        | IF LEFT_PARENTHESIS operation RIGHT_PARENTHESIS LEFT_BRACES matched RIGHT_BRACES else_if_stmts ELSE LEFT_BRACES matched RIGHT_BRACES
         | non_if_statement
+
+
+    else_if_stmts: else_if_stmt | else_if_stmt else_if_stmts
+    else_if_stmt: ELSEIF LEFT_PARENTHESIS operation RIGHT_PARENTHESIS LEFT_BRACES matched RIGHT_BRACES
 
 
 
@@ -82,8 +88,7 @@ program:START stmt_list FINISH;
     non_if_statement: expression SC |  COMMENT | operation | loop_stmt 
 
     expression: assign_stmt | declaration_stmt |method_declare | method_call | empty
-   
-
+    
     assign_stmt: IDENTIFIER ASSIGN_OP IDENTIFIER 
                 | IDENTIFIER ASSIGN_OP method_call
                 | IDENTIFIER ASSIGN_OP operation
@@ -92,16 +97,14 @@ program:START stmt_list FINISH;
     
     boolean: TRUE | FALSE
     
-    tag: BOOLEAN_TAG | HASH_ARRAY_TAG
-
     declaration_stmt: declaration | declaration_assign | hash_array_declaration
 
     declaration: BOOLEAN_TAG identifier_list
 
-    declaration_assign: BOOLEAN_TAG assign_stmt | CONST tag identifier_list
+    declaration_assign: BOOLEAN_TAG assign_stmt | CONST BOOLEAN_TAG identifier_list
 
     identifier_list: 
-        IDENTIFIER SC 
+        IDENTIFIER 
         | IDENTIFIER COMMA identifier_list
 
     operation: 
@@ -257,7 +260,7 @@ program:START stmt_list FINISH;
 
     return_stmt:
             IDENTIFIER
-            | BOOLEAN_TAG
+            | boolean
             | method_call
             | operation
             | hash_array
