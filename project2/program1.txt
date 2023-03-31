@@ -16,6 +16,6 @@ while( (x && y) && z)[
 ]
 
 boolean result = ( (x->y) && (!x <-> z));
-display("expression: ") ;
-display(result) ;
+display("expression: ");
+display(result);
 finish
