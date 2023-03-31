@@ -259,11 +259,22 @@ return_stmt:
         | hash_array
         
 %%
+#include "lex.yy.c"
+int line_number = 1;
+bool error = false;
+
 void yyerror(char *s) {
-	  printf("syntax error \n%s on line %d\n", s, yylineno);
+    error = true;
+    printf("[%s] Syntax error on line %d!\n", s, line_number);
 }
 
-int main(void){
-     yyparse();
+int main() {
+    yyparse();
+    if (error == false) {
+        printf("Input program is valid\n");
+        return 0;
+    }
+    else {
+        return 1;
+    }
 }
-
