@@ -107,14 +107,6 @@ program:START stmt_list FINISH;
         IDENTIFIER 
         | IDENTIFIER COMMA identifier_list
 
-    operation: 
-            IDENTIFIER OR_OP IDENTIFIER
-           |  IDENTIFIER AND_OP IDENTIFIER
-           | IDENTIFIER EQUALITY_OP IDENTIFIER
-           | IDENTIFIER NOT_EQUAL_OP IDENTIFIER
-           | IDENTIFIER IMPLICATION_OP IDENTIFIER
-           | IDENTIFIER DOUBLE_IMPLICATION_OP IDENTIFIER
-
    operation: 
         basic_operation 
         | LEFT_PARENTHESIS operation RIGHT_PARENTHESIS
