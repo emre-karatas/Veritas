@@ -5,9 +5,9 @@ start
 HashArray arr1 = {};
 boolean a,b,c,d;
 a = true;
-b = veritas;
+b = true;
 c = false;
-d = falsus;
+d = false;
 
 ## Print if the HashArray is empty or not ##
 
