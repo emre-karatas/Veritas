@@ -133,7 +133,7 @@ program:START stmt_list FINISH;
         | logical_operation5 equality_check boolean
         | logical_operation6
 
-    logical_operations6: 
+    logical_operation6: 
         IDENTIFIER |
         LEFT_PARENTHESIS operation RIGHT_PARENTHESIS
 
@@ -147,8 +147,8 @@ program:START stmt_list FINISH;
         | for_loop
 
     while_loop: 
-        WHILE LEFT_PARENTHESIS operation RIGHT_PARENTHESIS LEFT_BRACES stmt RIGHT_BRACES
-        | DO LEFT_BRACES stmt RIGHT_BRACES WHILE LEFT_PARENTHESIS operation RIGHT_PARENTHESIS SC
+        WHILE LEFT_PARENTHESIS operation RIGHT_PARENTHESIS LEFT_BRACES stmt_list RIGHT_BRACES
+        | DO LEFT_BRACES stmt_list RIGHT_BRACES WHILE LEFT_PARENTHESIS operation RIGHT_PARENTHESIS
 
     for_loop: 
         FOR_EACH IDENTIFIER IN IDENTIFIER LEFT_BRACES stmt RIGHT_BRACES
@@ -165,8 +165,8 @@ program:START stmt_list FINISH;
     parameter: data_type IDENTIFIER
 
     method_call: 
-        IDENTIFIER LEFT_PARENTHESIS parameter_identifier RIGHT_PARENTHESIS SC
-        | IDENTIFIER LEFT_PARENTHESIS empty RIGHT_PARENTHESIS SC | primitive_methods
+        IDENTIFIER LEFT_PARENTHESIS parameter_identifier RIGHT_PARENTHESIS
+        | IDENTIFIER LEFT_PARENTHESIS empty RIGHT_PARENTHESIS | primitive_methods
 
     parameter_identifier: 
         IDENTIFIER 
