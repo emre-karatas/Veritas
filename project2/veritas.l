@@ -53,6 +53,7 @@ identifier {letter}({identifier_rest})*
 \}              return RIGHT_CURLY;
 \(              return LEFT_PARENTHESIS;
 \)              return RIGHT_PARENTHESIS;
+[\t\n]            ;
 start           return START;
 finish          return FINISH;
 return          return RETURN;
