@@ -130,7 +130,7 @@ program:START stmt_list FINISH;
 
     logical_operation5 : 
         logical_operation5 equality_check logical_operation6 
-        | logical_operation5 boolean
+        | logical_operation5 equality_check boolean
         | logical_operation6
 
     logical_operations6: 
