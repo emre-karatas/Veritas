@@ -89,9 +89,7 @@ program:START stmt_list FINISH;
 
     expression: assign_stmt | declaration_stmt |method_declare | method_call | empty
     
-    assign_stmt: IDENTIFIER ASSIGN_OP IDENTIFIER 
-                | IDENTIFIER ASSIGN_OP method_call
-                | IDENTIFIER ASSIGN_OP operation
+    assign_stmt:  IDENTIFIER ASSIGN_OP operation
                 | IDENTIFIER ASSIGN_OP data_type
    
     
@@ -101,7 +99,7 @@ program:START stmt_list FINISH;
 
     declaration: BOOLEAN_TAG identifier_list
 
-    declaration_assign: BOOLEAN_TAG assign_stmt | CONST BOOLEAN_TAG identifier_list
+    declaration_assign: BOOLEAN_TAG assign_stmt | CONST BOOLEAN_TAG assign_stmt
 
     identifier_list: 
         IDENTIFIER 
