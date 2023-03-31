@@ -34,7 +34,6 @@ identifier {letter}({identifier_rest})*
 
 %option yylineno
 %%
-
 {line_comment}  return COMMENT;
 {implication_op}            return IMPLICATION_OP;
 {double_implication_op}          return DOUBLE_IMPLICATION_OP;
