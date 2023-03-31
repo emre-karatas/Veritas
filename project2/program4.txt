@@ -6,13 +6,13 @@ start
 boolean x,y;  
 
 ## giving x and y boolean values using Veritas language reserved words ##
-x = veritas;
-y = falsus;
+x = true;
+y = false;
 
 ## we want to separate everything to two lists , one is all true, other is all false ##
 
 HashArray true_list = {x};
-HashArray false_llist = {y};
+HashArray false_list = {y};
 
 
 ##taking values from the user and assigning them as constant booleans ##
