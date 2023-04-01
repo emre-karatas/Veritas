@@ -85,14 +85,14 @@ program:START stmt_list FINISH;
         |IF LEFT_PARENTHESIS operation RIGHT_PARENTHESIS LEFT_BRACES unmatched RIGHT_BRACES
         |IF LEFT_PARENTHESIS operation RIGHT_PARENTHESIS LEFT_BRACES matched RIGHT_BRACES  ELSE LEFT_BRACES unmatched RIGHT_BRACES
     
-    non_if_statement: expression SC |  COMMENT | operation | loop_stmt 
+    non_if_statement: expression SC | COMMENT  | loop_stmt 
 
-    expression: assign_stmt | declaration_stmt |method_declare | method_call | empty
+    expression: assign_stmt | declaration_stmt |operation | primitive_methods |  method_declare | method_call | empty
     
     assign_stmt:  IDENTIFIER ASSIGN_OP operation
                 | IDENTIFIER ASSIGN_OP data_type
 		|  IDENTIFIER ASSIGN_OP method_call
-   
+                | IDENTIFIER ASSIGN_OP primitive_methods 
     
     boolean: TRUE | FALSE
     
@@ -155,8 +155,12 @@ program:START stmt_list FINISH;
         | IDENTIFIER IN hash_array LEFT_BRACES stmt RIGHT_BRACES
 
     method_declare: 
-        return_type IDENTIFIER LEFT_PARENTHESIS parameter_list RIGHT_PARENTHESIS LEFT_BRACES stmt_list RETURN return_stmt RIGHT_BRACES
-        | return_type IDENTIFIER LEFT_PARENTHESIS empty RIGHT_PARENTHESIS LEFT_BRACES stmt_list RETURN return_stmt RIGHT_BRACES
+        VOID_TAG IDENTIFIER LEFT_PARENTHESIS parameter_list RIGHT_PARENTHESIS LEFT_BRACES stmt_list RETURN return_stmt RIGHT_BRACES
+        | VOID_TAG IDENTIFIER LEFT_PARENTHESIS empty RIGHT_PARENTHESIS LEFT_BRACES stmt_list RETURN return_stmt RIGHT_BRACES
+        BOOLEAN_TAG IDENTIFIER LEFT_PARENTHESIS parameter_list RIGHT_PARENTHESIS LEFT_BRACES stmt_list RETURN return_stmt RIGHT_BRACES
+        | BOOLEAN_TAG IDENTIFIER LEFT_PARENTHESIS empty RIGHT_PARENTHESIS LEFT_BRACES stmt_list RETURN return_stmt RIGHT_BRACES
+        | HASH_ARRAY_TAG IDENTIFIER LEFT_PARENTHESIS parameter_list RIGHT_PARENTHESIS LEFT_BRACES stmt_list RETURN return_stmt RIGHT_BRACES
+        | HASH_ARRAY_TAG IDENTIFIER LEFT_PARENTHESIS empty RIGHT_PARENTHESIS LEFT_BRACES stmt_list RETURN return_stmt RIGHT_BRACES
     parameter_list: 
         parameter 
         | parameter COMMA parameter_list
@@ -167,7 +171,7 @@ program:START stmt_list FINISH;
 
     method_call: 
         IDENTIFIER LEFT_PARENTHESIS parameter_identifier RIGHT_PARENTHESIS
-        | IDENTIFIER LEFT_PARENTHESIS empty RIGHT_PARENTHESIS | primitive_methods
+        | IDENTIFIER LEFT_PARENTHESIS empty RIGHT_PARENTHESIS
 
     parameter_identifier: 
         IDENTIFIER 
@@ -229,14 +233,7 @@ program:START stmt_list FINISH;
 
     data_type:
             hash_array| boolean
-        
-
-
-    return_type:
-            VOID_TAG
-            | BOOLEAN_TAG
-            | HASH_ARRAY_TAG
-
+      
     return_stmt:
              boolean
             | method_call
