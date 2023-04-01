@@ -258,7 +258,7 @@ void yyerror(char *s) {
 int main(void){
      yyparse();
      if (error == false) {
-        printf("Input program is valid");
+        printf("Input program is valid\n");
         return 0;
     }
     else {
