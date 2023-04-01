@@ -34,8 +34,6 @@ void checkHash()[
         printHash(new_array);
         
     ]
-
-    ##if the user only entered one value and that is true, say that the hash array is empty ##
     else[
         display("Hash array is empty");
     ]

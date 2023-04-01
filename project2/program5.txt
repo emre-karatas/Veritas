@@ -16,7 +16,7 @@ display(arr1.isEmpty());
 ## Add and delete from HashArray ##
 
 
-arr1.addHash(a, b, c);
+arr1.addHash(a,b,c);
 printHash(arr1);
 
 arr1.deleteAllFalse();
@@ -43,11 +43,11 @@ while (arr1.allFalseHash()) [
 
 ## Now let's control implication and double implication and logical operations ##
 
-if ( !a -> !(b !! c) ) [
+if ( !a ->  (b !! c) ) [
     display("True");
 ]
 
-if ( (a && b) || ( c -> d ) ) [ 
+elseif ( (a && b) || ( c -> d ) ) [ 
     display("True");
 ]
 else [

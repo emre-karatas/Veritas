@@ -8,24 +8,12 @@ boolean foo(boolean p,boolean q, boolean r)[
     display(q);
     display("r: ");
     display(r);
-
-    if(r)[
-        return (p -> (q || r))
-    ]
-
-    return q<->r
+    return c
 ]
 
-boolean himym,friends;
-himym = true;
-friends = true;
-
-## create a hash array using predefined identifiers above ##
-HashArray data = {himym,friends};
-HashArray data2 = {true}
-foreach a in data[
-    foreach b in data[
-        c = foo(a,b,false)
+foreach a in {true,false}[
+    foreach b in {true,false}[
+        c = foo(a,b,false);
         display("a: ");
         display(a);
         display("b: ");

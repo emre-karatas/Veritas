@@ -35,7 +35,6 @@ if(input_list.allTrueHash())[
     true_list.addHash(a2);
     true_list.addHash(a3);
 
-    ##clean the input list when we are done ##
     input_list.deleteAllTrue();
     display("Inputs were all true");
 
@@ -49,8 +48,6 @@ if(input_list.allFalseHash())[
     false_list.deleteAllFalse();
     display("Inputs were all false");
 ]
-
-## if the input values were mixed with true and false values, iterate through the list and add the items to the correct list ##
 else[
     foreach item in input_list[
 
