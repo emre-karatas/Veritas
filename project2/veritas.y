@@ -155,14 +155,15 @@ program:START stmt_list FINISH;
         | IDENTIFIER IN hash_array LEFT_BRACES stmt RIGHT_BRACES
 
     method_declare: 
-        return_type IDENTIFIER LEFT_PARENTHESIS parameter_list RIGHT_PARENTHESIS LEFT_BRACES stmt RETURN return_stmt RIGHT_BRACES
-
+        return_type IDENTIFIER LEFT_PARENTHESIS parameter_list RIGHT_PARENTHESIS LEFT_BRACES stmt_list RETURN return_stmt RIGHT_BRACES
+        | return_type IDENTIFIER LEFT_PARENTHESIS empty RIGHT_PARENTHESIS LEFT_BRACES stmt_list RETURN return_stmt RIGHT_BRACES
     parameter_list: 
         parameter 
         | parameter COMMA parameter_list
-        | empty
 
-    parameter: data_type IDENTIFIER
+    
+    parameter: BOOLEAN_TAG IDENTIFIER |
+               HASH_ARRAY_TAG IDENTIFIER
 
     method_call: 
         IDENTIFIER LEFT_PARENTHESIS parameter_identifier RIGHT_PARENTHESIS
@@ -237,8 +238,7 @@ program:START stmt_list FINISH;
             | HASH_ARRAY_TAG
 
     return_stmt:
-            IDENTIFIER
-            | boolean
+             boolean
             | method_call
             | operation
             | hash_array
