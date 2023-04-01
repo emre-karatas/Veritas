@@ -75,7 +75,7 @@ program:START stmt_list FINISH;
         IF LEFT_PARENTHESIS operation RIGHT_PARENTHESIS LEFT_BRACES matched RIGHT_BRACES ELSE LEFT_BRACES matched RIGHT_BRACES
         | IF LEFT_PARENTHESIS operation RIGHT_PARENTHESIS LEFT_BRACES matched RIGHT_BRACES else_if_stmts
         | IF LEFT_PARENTHESIS operation RIGHT_PARENTHESIS LEFT_BRACES matched RIGHT_BRACES else_if_stmts ELSE LEFT_BRACES matched RIGHT_BRACES
-        | non_if_statement 
+        | non_if_statements 
 
 
     else_if_stmts: else_if_stmt | else_if_stmt else_if_stmts
@@ -87,7 +87,9 @@ program:START stmt_list FINISH;
         |IF LEFT_PARENTHESIS operation RIGHT_PARENTHESIS LEFT_BRACES unmatched RIGHT_BRACES
         |IF LEFT_PARENTHESIS operation RIGHT_PARENTHESIS LEFT_BRACES matched RIGHT_BRACES  ELSE LEFT_BRACES unmatched RIGHT_BRACES
     
-    non_if_statement: expression SC | method_declare  | loop_stmt 
+    non_if_statements: non_if_statement | non_if_statement non_if_statements
+    non_if_statement: expression  SC | method_declare  | loop_stmt 
+
 
     expression: assign_stmt  | declaration_stmt | operation | empty
     
@@ -213,14 +215,15 @@ program:START stmt_list FINISH;
             DISPLAY LEFT_PARENTHESIS output RIGHT_PARENTHESIS
     output:
             STR
-            | IDENTIFIER
+            | operation
             | boolean
     print_hash:
             PRINT_HASH LEFT_PARENTHESIS IDENTIFIER RIGHT_PARENTHESIS
             | PRINT_HASH LEFT_PARENTHESIS hash_array RIGHT_PARENTHESIS
     add_to_hash:
-            IDENTIFIER DOT ADD_TO_HASH LEFT_PARENTHESIS IDENTIFIER RIGHT_PARENTHESIS
+            IDENTIFIER DOT ADD_TO_HASH LEFT_PARENTHESIS identifier_list  RIGHT_PARENTHESIS
             | IDENTIFIER DOT ADD_TO_HASH LEFT_PARENTHESIS BOOLEAN_TAG RIGHT_PARENTHESIS
+             
     delete_all_false:
             IDENTIFIER DOT DELETE_ALL_FALSE LEFT_PARENTHESIS RIGHT_PARENTHESIS
     delete_all_true:
@@ -255,7 +258,7 @@ void yyerror(char *s) {
 int main(void){
      yyparse();
      if (error == false) {
-        printf("Input program is valid\n");
+        printf("Input program is valid");
         return 0;
     }
     else {
