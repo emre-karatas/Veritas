@@ -57,7 +57,7 @@ start           return START;
 finish          return FINISH;
 return          return RETURN;
 if              return IF;
-elseif          return ELSEIF
+elseif          return ELSEIF;
 else            return ELSE;
 const           return CONST;
 {foreach} return FOR_EACH;
