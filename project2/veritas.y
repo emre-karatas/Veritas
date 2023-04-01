@@ -177,6 +177,8 @@ program:START stmt_list FINISH;
 
     parameter_identifier: 
         IDENTIFIER 
+	| boolean
+	| boolean COMMA parameter_identifier
         | IDENTIFIER COMMA parameter_identifier
 
 	
