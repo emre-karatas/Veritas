@@ -65,7 +65,7 @@ program:START stmt_list FINISH;
         stmt |
         stmt stmt_list |
         COMMENT |
-        COMMENT stmt_list
+        COMMENT stmt_list |
         error SC {yyerrok;}
 
     stmt:
