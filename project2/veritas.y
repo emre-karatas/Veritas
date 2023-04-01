@@ -89,7 +89,7 @@ program:START stmt_list FINISH;
     
     non_if_statement: expression SC | method_declare  | loop_stmt 
 
-    expression: assign_stmt  | declaration_stmt | operation SC | primitive_methods  | method_call  | empty
+    expression: assign_stmt  | declaration_stmt | operation | primitive_methods  | method_call  | empty
     
     assign_stmt:  IDENTIFIER ASSIGN_OP operation
                 | IDENTIFIER ASSIGN_OP data_type
