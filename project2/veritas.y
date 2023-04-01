@@ -85,9 +85,9 @@ program:START stmt_list FINISH;
         |IF LEFT_PARENTHESIS operation RIGHT_PARENTHESIS LEFT_BRACES unmatched RIGHT_BRACES
         |IF LEFT_PARENTHESIS operation RIGHT_PARENTHESIS LEFT_BRACES matched RIGHT_BRACES  ELSE LEFT_BRACES unmatched RIGHT_BRACES
     
-    non_if_statement: expression SC | COMMENT  | loop_stmt 
+    non_if_statement: expression SC |method_declare |  COMMENT  | loop_stmt 
 
-    expression: assign_stmt | declaration_stmt |operation | primitive_methods |  method_declare | method_call | empty
+    expression: assign_stmt | declaration_stmt |operation | primitive_methods | method_call | empty
     
     assign_stmt:  IDENTIFIER ASSIGN_OP operation
                 | IDENTIFIER ASSIGN_OP data_type
@@ -155,8 +155,8 @@ program:START stmt_list FINISH;
         | IDENTIFIER IN hash_array LEFT_BRACES stmt_list RIGHT_BRACES
 
     method_declare: 
-        VOID_TAG IDENTIFIER LEFT_PARENTHESIS parameter_list RIGHT_PARENTHESIS LEFT_BRACES stmt_list RETURN return_stmt RIGHT_BRACES
-        | VOID_TAG IDENTIFIER LEFT_PARENTHESIS empty RIGHT_PARENTHESIS LEFT_BRACES stmt_list RETURN return_stmt RIGHT_BRACES
+        VOID_TAG IDENTIFIER LEFT_PARENTHESIS parameter_list RIGHT_PARENTHESIS LEFT_BRACES stmt_list RIGHT_BRACES
+        | VOID_TAG IDENTIFIER LEFT_PARENTHESIS empty RIGHT_PARENTHESIS LEFT_BRACES stmt_list  RIGHT_BRACES
         BOOLEAN_TAG IDENTIFIER LEFT_PARENTHESIS parameter_list RIGHT_PARENTHESIS LEFT_BRACES stmt_list RETURN return_stmt RIGHT_BRACES
         | BOOLEAN_TAG IDENTIFIER LEFT_PARENTHESIS empty RIGHT_PARENTHESIS LEFT_BRACES stmt_list RETURN return_stmt RIGHT_BRACES
         | HASH_ARRAY_TAG IDENTIFIER LEFT_PARENTHESIS parameter_list RIGHT_PARENTHESIS LEFT_BRACES stmt_list RETURN return_stmt RIGHT_BRACES
