@@ -154,7 +154,7 @@ program:START stmt_list FINISH;
 
     for_loop: 
         FOR_EACH IDENTIFIER IN IDENTIFIER LEFT_BRACES stmt_list RIGHT_BRACES
-        | IDENTIFIER IN hash_array LEFT_BRACES stmt_list RIGHT_BRACES
+        | FOR_EACH IDENTIFIER IN hash_array LEFT_BRACES stmt_list RIGHT_BRACES
 
     method_declare: 
         VOID_TAG IDENTIFIER LEFT_PARENTHESIS parameter_list RIGHT_PARENTHESIS LEFT_BRACES stmt_list RIGHT_BRACES
