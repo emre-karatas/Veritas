@@ -62,8 +62,10 @@ program:START stmt_list FINISH;
 
 
     stmt_list:
-        stmt|
-        stmt stmt_list|
+        stmt |
+        stmt stmt_list |
+        COMMENT |
+        COMMENT stmt_list
         error SC {yyerrok;}
 
     stmt:
@@ -73,7 +75,7 @@ program:START stmt_list FINISH;
         IF LEFT_PARENTHESIS operation RIGHT_PARENTHESIS LEFT_BRACES matched RIGHT_BRACES ELSE LEFT_BRACES matched RIGHT_BRACES
         | IF LEFT_PARENTHESIS operation RIGHT_PARENTHESIS LEFT_BRACES matched RIGHT_BRACES else_if_stmts
         | IF LEFT_PARENTHESIS operation RIGHT_PARENTHESIS LEFT_BRACES matched RIGHT_BRACES else_if_stmts ELSE LEFT_BRACES matched RIGHT_BRACES
-        | non_if_statement
+        | non_if_statement 
 
 
     else_if_stmts: else_if_stmt | else_if_stmt else_if_stmts
@@ -85,9 +87,9 @@ program:START stmt_list FINISH;
         |IF LEFT_PARENTHESIS operation RIGHT_PARENTHESIS LEFT_BRACES unmatched RIGHT_BRACES
         |IF LEFT_PARENTHESIS operation RIGHT_PARENTHESIS LEFT_BRACES matched RIGHT_BRACES  ELSE LEFT_BRACES unmatched RIGHT_BRACES
     
-    non_if_statement: expression SC |method_declare |  COMMENT  | loop_stmt 
+    non_if_statement: expression SC | method_declare  | loop_stmt 
 
-    expression: assign_stmt | declaration_stmt |operation | primitive_methods | method_call | empty
+    expression: assign_stmt  | declaration_stmt | operation SC | primitive_methods  | method_call  | empty
     
     assign_stmt:  IDENTIFIER ASSIGN_OP operation
                 | IDENTIFIER ASSIGN_OP data_type
