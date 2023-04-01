@@ -10,7 +10,6 @@ c = false;
 d = false;
 
 ## Print if the HashArray is empty or not ##
-
 display(arr1.isEmpty());
 
 ## Add and delete from HashArray ##
@@ -40,7 +39,6 @@ while (arr1.allFalseHash()) [
     printHash(arr1);
     arr1.deleteAllTrue();
 ]
-
 ## Now let's control implication and double implication and logical operations ##
 
 if ( !a ->  (b !! c) ) [
