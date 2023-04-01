@@ -13,7 +13,6 @@ line_comment \#\#(.)*\#\#
 const_str  \"(.)*\"
 boolean (true|false)
 data_type ({boolean}|{hash_array})
-tag ({boolean_tag} | {hash_array_tag} | {void_tag})
 boolean_tag boolean
 hash_array_tag HashArray
 void_tag void
