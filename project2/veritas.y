@@ -66,7 +66,7 @@ program:START stmt_list FINISH;
         stmt stmt_list |
         COMMENT |
         COMMENT stmt_list |
-        error SC {yyerrok;}
+        error | error stmt_list
 
     stmt:
         matched | unmatched
@@ -75,7 +75,9 @@ program:START stmt_list FINISH;
         IF LEFT_PARENTHESIS operation RIGHT_PARENTHESIS LEFT_BRACES matched RIGHT_BRACES ELSE LEFT_BRACES matched RIGHT_BRACES
         | IF LEFT_PARENTHESIS operation RIGHT_PARENTHESIS LEFT_BRACES matched RIGHT_BRACES else_if_stmts
         | IF LEFT_PARENTHESIS operation RIGHT_PARENTHESIS LEFT_BRACES matched RIGHT_BRACES else_if_stmts ELSE LEFT_BRACES matched RIGHT_BRACES
-        | non_if_statements 
+        | non_if_statements | return_block
+
+    return_block: RETURN return_stmt    
 
 
     else_if_stmts: else_if_stmt | else_if_stmt else_if_stmts
@@ -258,7 +260,7 @@ void yyerror(char *s) {
 int main(void){
      yyparse();
      if (error == false) {
-        printf("Input program is valid\n");
+        printf("Input program is valid \n");
         return 0;
     }
     else {
