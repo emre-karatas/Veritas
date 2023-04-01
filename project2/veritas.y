@@ -89,12 +89,10 @@ program:START stmt_list FINISH;
     
     non_if_statement: expression SC | method_declare  | loop_stmt 
 
-    expression: assign_stmt  | declaration_stmt | operation | primitive_methods  | method_call  | empty
+    expression: assign_stmt  | declaration_stmt | operation | empty
     
     assign_stmt:  IDENTIFIER ASSIGN_OP operation
-                | IDENTIFIER ASSIGN_OP data_type
-		|  IDENTIFIER ASSIGN_OP method_call
-                | IDENTIFIER ASSIGN_OP primitive_methods 
+                | IDENTIFIER ASSIGN_OP data_type 
     
     boolean: TRUE | FALSE
     
@@ -136,12 +134,14 @@ program:START stmt_list FINISH;
         | logical_operation6
 
     logical_operation6: 
-        IDENTIFIER |
+        variable_combo |
         LEFT_PARENTHESIS operation RIGHT_PARENTHESIS
 
     equality_check: 
         EQUALITY_OP 
         | NOT_EQUAL_OP
+
+    variable_combo: IDENTIFIER | method_call | primitive_methods
 
 
     loop_stmt : 
@@ -154,7 +154,7 @@ program:START stmt_list FINISH;
 
     for_loop: 
         FOR_EACH IDENTIFIER IN IDENTIFIER LEFT_BRACES stmt_list RIGHT_BRACES
-        | FOR_EACH IDENTIFIER IN hash_array LEFT_BRACES stmt_list RIGHT_BRACES
+        |FOR_EACH IDENTIFIER IN hash_array LEFT_BRACES stmt_list RIGHT_BRACES
 
     method_declare: 
         VOID_TAG IDENTIFIER LEFT_PARENTHESIS parameter_list RIGHT_PARENTHESIS LEFT_BRACES stmt_list RIGHT_BRACES
@@ -240,7 +240,6 @@ program:START stmt_list FINISH;
       
     return_stmt:
              boolean
-            | method_call
             | operation
             | hash_array
 
