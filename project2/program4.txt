@@ -7,13 +7,12 @@ boolean x,y;
 
 ## giving x and y boolean values using Veritas language reserved words ##
 x = true;
-y = false;
+y = false   ## missing ";" syntax error ##
 
 ## we want to separate everything to two lists , one is all true, other is all false ##
 
-HashArray true_list = {x};
+HashArray true_list {x}  ## missing "=" syntax error ##
 HashArray false_list = {y};
-
 
 ##taking values from the user and assigning them as constant booleans ##
 const boolean a1 = scanInput("enter your first constant: ");
@@ -24,11 +23,12 @@ const boolean a3 = scanInput("enter you third constant: ");
 ##adding all inputs to a separate list ##
 HashArray input_list = {};
 
-input_list.addHash(a1);
+input_list.addHash(a1;  ## missing ")" syntax error ##
 input_list.addHash(a2);
 input_list.addHash(a3);
 
 ## if all of the input values were true, directly add all of them to the list containing all true values ##
+
 if(input_list.allTrueHash())[
     
     true_list.addHash(a1);
