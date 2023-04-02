@@ -47,6 +47,8 @@ extern int yylineno;
 %token RIGHT_PARENTHESIS
 %token START
 %token FINISH
+%token START_SYMBOL
+%token FINISH_SYMBOL
 %token RETURN
 %token IF
 %token ELSEIF
@@ -63,33 +65,26 @@ program:START stmt_list FINISH;
 
     stmt_list:
         stmt |
-        stmt stmt_list |
-        COMMENT |
-        COMMENT stmt_list |
-        error | error stmt_list
-
+        stmt stmt_list
     stmt:
-        matched | unmatched
+    if_stmt | non_if_statement | COMMENT | error
 
-    matched:
-        IF LEFT_PARENTHESIS operation RIGHT_PARENTHESIS LEFT_BRACES matched RIGHT_BRACES ELSE LEFT_BRACES matched RIGHT_BRACES
-        | IF LEFT_PARENTHESIS operation RIGHT_PARENTHESIS LEFT_BRACES matched RIGHT_BRACES else_if_stmts
-        | IF LEFT_PARENTHESIS operation RIGHT_PARENTHESIS LEFT_BRACES matched RIGHT_BRACES else_if_stmts ELSE LEFT_BRACES matched RIGHT_BRACES
-        | non_if_statements | return_block
+
+    if_stmt:  IF LEFT_PARENTHESIS operation RIGHT_PARENTHESIS LEFT_BRACES block  RIGHT_BRACES ELSE LEFT_BRACES block RIGHT_BRACES
+        | IF LEFT_PARENTHESIS operation RIGHT_PARENTHESIS LEFT_BRACES block RIGHT_BRACES else_if_stmts
+        | IF LEFT_PARENTHESIS operation RIGHT_PARENTHESIS LEFT_BRACES block  RIGHT_BRACES else_if_stmts ELSE LEFT_BRACES block RIGHT_BRACES
+        | IF LEFT_PARENTHESIS operation RIGHT_PARENTHESIS LEFT_BRACES block RIGHT_BRACES
 
     return_block: RETURN return_stmt    
 
 
     else_if_stmts: else_if_stmt | else_if_stmt else_if_stmts
-    else_if_stmt: ELSEIF LEFT_PARENTHESIS operation RIGHT_PARENTHESIS LEFT_BRACES matched RIGHT_BRACES
+    else_if_stmt: ELSEIF LEFT_PARENTHESIS operation RIGHT_PARENTHESIS LEFT_BRACES block RIGHT_BRACES
 
 
 
-    unmatched: IF LEFT_PARENTHESIS operation RIGHT_PARENTHESIS LEFT_BRACES matched RIGHT_BRACES
-        |IF LEFT_PARENTHESIS operation RIGHT_PARENTHESIS LEFT_BRACES unmatched RIGHT_BRACES
-        |IF LEFT_PARENTHESIS operation RIGHT_PARENTHESIS LEFT_BRACES matched RIGHT_BRACES  ELSE LEFT_BRACES unmatched RIGHT_BRACES
+    block: START_SYMBOL stmt_list FINISH_SYMBOL | START_SYMBOL return_block FINISH_SYMBOL | START_SYMBOL stmt_list return_block FINISH_SYMBOL
     
-    non_if_statements: non_if_statement | non_if_statement non_if_statements
     non_if_statement: expression  SC | method_declare  | loop_stmt 
 
 
