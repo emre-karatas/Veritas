@@ -60,7 +60,7 @@ extern int yylineno;
 
 %%
 
-program:START stmt_list FINISH;
+program:START stmt_list FINISH
 
 
     stmt_list:
