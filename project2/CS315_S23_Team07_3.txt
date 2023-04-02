@@ -1,0 +1,48 @@
+start
+
+## get input from the user until they enter a false value ##
+## add all of them into the hash array ##
+
+
+HashArray foo()[
+
+    HashArray arr = {};
+    boolean input = scanInput("enter a true value: ");
+    arr.addHash(input);
+
+    while(arr.allTrueHash())[
+
+        boolean input = scanInput("enter a true value: ");
+        arr.addHash(input);
+    ]
+
+    ##delete the false value ##
+    arr.deleteAllFalse();
+    return arr
+   
+]
+
+void checkHash()[
+    HashArray new_array = foo();
+
+    ##if the user entered some true values, print it ##
+    if(!(new_array.isEmpty()))[
+        #*        
+        display("All true hash: ");
+        printHash(new_array);
+	*#
+        
+    ]
+    else[
+        #*
+        display("Hash array is empty");
+	*#
+    ]
+
+]
+
+
+##call the function##
+checkHash();
+
+finish
