@@ -8,8 +8,11 @@ boolean foo(boolean p,boolean q, boolean r)[
     display(q);
     display("r: ");
     display(r);
+
     if(r)[
-        p -> (q || r) ## missing a return statement ##
+       #*
+       return  p -> (q || r)
+       *#
     ]
     return q <-> r
 ]
@@ -18,7 +21,7 @@ foreach a in {true,false}[
     foreach b in {true,false}[
         c = foo(a,b,false);
         display("a: ");
-        display(a);
+        display(a,); ## unexpected "," , syntax error ##
         display("b: ");
         display(b);
         display("c: ");

@@ -55,6 +55,8 @@ identifier {letter}({identifier_rest})*
 [\t\n]            ;
 start           return START;
 finish          return FINISH;
+\#\*            return START_SYMBOL;
+\*\#            return FINISH_SYMBOL;
 return          return RETURN;
 if              return IF;
 elseif          return ELSEIF;
