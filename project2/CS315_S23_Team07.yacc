@@ -70,16 +70,16 @@ program:START stmt_list FINISH;
     if_stmt | non_if_statement | COMMENT | error
 
 
-    if_stmt:  IF LEFT_PARENTHESIS operation RIGHT_PARENTHESIS LEFT_BRACES block  RIGHT_BRACES ELSE LEFT_BRACES block RIGHT_BRACES
-        | IF LEFT_PARENTHESIS operation RIGHT_PARENTHESIS LEFT_BRACES block RIGHT_BRACES else_if_stmts
-        | IF LEFT_PARENTHESIS operation RIGHT_PARENTHESIS LEFT_BRACES block  RIGHT_BRACES else_if_stmts ELSE LEFT_BRACES block RIGHT_BRACES
-        | IF LEFT_PARENTHESIS operation RIGHT_PARENTHESIS LEFT_BRACES block RIGHT_BRACES
+    if_stmt:  IF LEFT_PARENTHESIS logical_combination RIGHT_PARENTHESIS LEFT_BRACES block  RIGHT_BRACES ELSE LEFT_BRACES block RIGHT_BRACES
+        | IF LEFT_PARENTHESIS logical_combination RIGHT_PARENTHESIS LEFT_BRACES block RIGHT_BRACES else_if_stmts
+        | IF LEFT_PARENTHESIS logical_combination RIGHT_PARENTHESIS LEFT_BRACES block  RIGHT_BRACES else_if_stmts ELSE LEFT_BRACES block RIGHT_BRACES
+        | IF LEFT_PARENTHESIS logical_combination RIGHT_PARENTHESIS LEFT_BRACES block RIGHT_BRACES
 
     return_block: RETURN return_stmt    
 
 
     else_if_stmts: else_if_stmt | else_if_stmt else_if_stmts
-    else_if_stmt: ELSEIF LEFT_PARENTHESIS operation RIGHT_PARENTHESIS LEFT_BRACES block RIGHT_BRACES
+    else_if_stmt: ELSEIF LEFT_PARENTHESIS logical_combination RIGHT_PARENTHESIS LEFT_BRACES block RIGHT_BRACES
 
 
 
@@ -88,9 +88,9 @@ program:START stmt_list FINISH;
     non_if_statement: expression  SC | method_declare  | loop_stmt 
 
 
-    expression: assign_stmt  | declaration_stmt | operation | empty
+    expression: assign_stmt  | declaration_stmt | logical_combination | empty
     
-    assign_stmt:  IDENTIFIER ASSIGN_OP operation
+    assign_stmt:  IDENTIFIER ASSIGN_OP logical_combination
                 | IDENTIFIER ASSIGN_OP data_type 
     
     boolean: TRUE | FALSE
@@ -105,51 +105,48 @@ program:START stmt_list FINISH;
         IDENTIFIER 
         | IDENTIFIER COMMA identifier_list
 
-   operation: 
-        logical_operation 
-        | NOT_OP logical_operation
 
+    logical_combination : 
+        logical_combination DOUBLE_IMPLICATION_OP logical_combination2 
+        | logical_combination2
 
+    logical_combination2 : 
+        logical_combination2 IMPLICATION_OP logical_combination3 
+        | logical_combination3
 
-    logical_operation : 
-        logical_operation DOUBLE_IMPLICATION_OP logical_operation2 
-        | logical_operation2
+    logical_combination3 : 
+        logical_combination3 OR_OP logical_combination4 
+        | logical_combination4
 
-    logical_operation2 : 
-        logical_operation2 IMPLICATION_OP logical_operation3 
-        | logical_operation3
+    logical_combination4 : 
+        logical_combination4 AND_OP logical_combination5 
+        | logical_combination5
 
-    logical_operation3 : 
-        logical_operation3 OR_OP logical_operation4 
-        | logical_operation4
+    logical_combination5 : 
+        logical_combination5 equality_check logical_combination6 
+        | logical_combination5 equality_check boolean
+        | logical_combination6
 
-    logical_operation4 : 
-        logical_operation4 AND_OP logical_operation5 
-        | logical_operation5
-
-    logical_operation5 : 
-        logical_operation5 equality_check logical_operation6 
-        | logical_operation5 equality_check boolean
-        | logical_operation6
-
-    logical_operation6: 
+    logical_combination6: 
         variable_combo |
-        LEFT_PARENTHESIS operation RIGHT_PARENTHESIS
+        LEFT_PARENTHESIS logical_combination RIGHT_PARENTHESIS|
+        NOT_OP  LEFT_PARENTHESIS logical_combination RIGHT_PARENTHESIS
 
     equality_check: 
         EQUALITY_OP 
         | NOT_EQUAL_OP
 
-    variable_combo: IDENTIFIER | method_call | primitive_methods
-
-
+    
+    variable_combo: NOT_OP variable | variable
+    variable: IDENTIFIER |method_call | primitive_methods
+    
     loop_stmt : 
         while_loop 
         | for_loop
 
     while_loop: 
-        WHILE LEFT_PARENTHESIS operation RIGHT_PARENTHESIS LEFT_BRACES stmt_list RIGHT_BRACES
-        | DO LEFT_BRACES stmt_list RIGHT_BRACES WHILE LEFT_PARENTHESIS operation RIGHT_PARENTHESIS
+        WHILE LEFT_PARENTHESIS logical_combination RIGHT_PARENTHESIS LEFT_BRACES stmt_list RIGHT_BRACES
+        | DO LEFT_BRACES stmt_list RIGHT_BRACES WHILE LEFT_PARENTHESIS logical_combination RIGHT_PARENTHESIS
 
     for_loop: 
         FOR_EACH IDENTIFIER IN IDENTIFIER LEFT_BRACES stmt_list RIGHT_BRACES
@@ -212,7 +209,7 @@ program:START stmt_list FINISH;
             DISPLAY LEFT_PARENTHESIS output RIGHT_PARENTHESIS
     output:
             STR
-            | operation
+            | logical_combination
             | boolean
     print_hash:
             PRINT_HASH LEFT_PARENTHESIS IDENTIFIER RIGHT_PARENTHESIS
@@ -240,7 +237,7 @@ program:START stmt_list FINISH;
       
     return_stmt:
              boolean
-            | operation
+            | logical_combination
             | hash_array
 
         
